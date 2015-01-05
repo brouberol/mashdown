@@ -94,5 +94,9 @@ def main():
         audio_format=args.audioformat,
         metadata=metadata).export_tracks()
 
+    # Cleaning up (only if the file was downloaded in the first place)
+    if not args.mashupfile:
+        os.unlink(mashupfile)
+
 if __name__ == '__main__':
     main()
