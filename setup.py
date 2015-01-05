@@ -9,13 +9,15 @@ with open('mashdown/__init__.py') as f:
     ).group()
 
 
-with open('README.md') as f:
+with open('README.rst') as f:
     readme = f.read()
 
 setup(
     name=u'mashdown',
     version=version,
-    description=u'Split a youtube mashup video in a list of tagged audio files',
+    description=(
+        u'Download and split a youtube mashup video in a list of tagged '
+        u'audio files'),
     long_description=readme,
     author=u'Balthazar Rouberol',
     author_email=u'brouberol@imap.cc',
