@@ -34,6 +34,9 @@ def parse_args():
         default='.',
         help=('The directory in which the output directory will be created.'
               'By default, the current directory will be used.'))
+    parser.add_argument(
+        '-q', '--quiet', action='store_true', default=False,
+        help=('Remove non important log messages'))
 
     metadata = parser.add_argument_group('metadata')
     metadata.add_argument('--artist', help='The artist name')
@@ -43,11 +46,17 @@ def parse_args():
 
 def main():
     args = parse_args()
+
+    def log(msg):
+        if not args.quiet:
+            print(msg)
+
     youtube = 'youtube' in args.tracklist
     metadata = {}
 
     # Get tracklist location
     if youtube:
+        log('Fetching metadata for %s...' % (args.tracklist))
         video = pafy.new(args.tracklist, basic=False)
         tracklist_location = video
     else:
@@ -63,10 +72,14 @@ def main():
         metadata['album'] or os.path.splitext(os.path.basename(args.video))[0]
     )
     if not os.path.exists(output_dir):
+        log('Creating ' + output_dir)
         os.makedirs(output_dir)
 
     # Perform the tracklist extraction and audiofile export
+    log('Extracting track information...')
     tracklist = extract_tracklist(tracklist_location)
+
+    log('Exporting and tagging audio files...')
     AudioExporter(
         tracklist=tracklist,
         video_filepath=args.video,

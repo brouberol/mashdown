@@ -15,9 +15,9 @@ $ pip install mashdown
 ## Usage
 
 ```
-usage: mashdown [-h] [-t TRACKLIST] [-f AUDIOFORMAT] [-o OUTPUT_DIR]
-           [--artist ARTIST] [--album ALBUM]
-           video
+usage: mashdown [-h] [-t TRACKLIST] [-f AUDIOFORMAT] [-o OUTPUT_DIR] [-q]
+               [--artist ARTIST] [--album ALBUM]
+               video
 
 Splits a Youtube mashup video into a list of tagged audio tracks
 
@@ -38,10 +38,12 @@ optional arguments:
                         The directory in which the output directory will be
                         created.By default, the current directory will be
                         used.
+  -q, --quiet           Remove non important log messages
 
 metadata:
   --artist ARTIST       The artist name
   --album ALBUM         The album name
+
 ```
 
 ## Example

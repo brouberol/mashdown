@@ -51,8 +51,8 @@ class AudioExporter(object):
             str(track_nb).zfill(len(str(self.nb_tracks))),
             name,
             self.audio_format)
-        print(filename)
         filepath = join(self.output_dir, filename)
+        print(filepath)
         audiosegment.export(filepath, format=self.audio_format)
         write_metadata(
             audio_format=self.audio_format,
