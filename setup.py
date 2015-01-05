@@ -15,7 +15,7 @@ with open('README.rst') as f:
 setup(
     name=u'mashdown',
     version=version,
-    description=u'v',
+    description=u'Splits a youtube mashup video in a list of tagged audio files',
     long_description=readme,
     author=u'Balthazar Rouberol',
     author_email=u'brouberol@imap.cc',
