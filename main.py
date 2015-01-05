@@ -14,13 +14,17 @@ from mashdown.audio import AudioExporter
 def parse_args():
     parser = argparse.ArgumentParser(
         description=('Splits a Youtube mashup video into a list of '
-                     'tagged audio tracks')
-    )
+                     'tagged audio tracks'))
     parser.add_argument(
-        '-m', '--mashup',
-        required=True,
-        help=('The path to the video file. It can either be a Youtube link or '
-              'a local path, absolute or relative.'))
+        '-u', '--url',
+        help='The youtube link to the mashup.')
+    parser.add_argument(
+        '-m', '--mashupfile',
+        help='The local path, relative or absolute, to the mashup file.')
+    parser.add_argument(
+        '--input-audioformat',
+        default='mp4',
+        help='The prefered audio format for the source mashup file.')
     parser.add_argument(
         '-f', '--audioformat',
         default='ogg',
@@ -42,22 +46,27 @@ def parse_args():
 
 
 def main():
+    metadata = {}
     args = parse_args()
 
     def log(msg):
         if not args.quiet:
             print(msg)
 
-    metadata = {}
+    log('Fetching metadata for %s...' % (args.url))
+    youtube_page = pafy.new(args.url, basic=False)
 
-    # Get tracklist location
-    log('Fetching metadata for %s...' % (args.mashup))
-    if 'youtube' in args.mashup:
-        video = pafy.new(args.mashup, basic=False)
-        bestaudio_url = video.getbestaudio(preftype='mp4').url
-        mashupfile = bestaudio_url.download(quiet=args.quiet)
+    if not args.mashupfile:
+        # Downloading mashup
+        log('Downloading mashup file from %s' % (args.url))
+        bestaudio = youtube_page.getbestaudio(preftype=args.input_audioformat)
+        if not bestaudio:
+            log('Could not find any %s audio file' % (args.input_audioformat))
+            bestaudio = youtube_page.getbestaudio()
+        log('Downloading %s' % (bestaudio.url))
+        mashupfile = os.path.abspath(bestaudio.download(quiet=args.quiet))
     else:
-        mashupfile = os.path.abspath(args.mashup)
+        mashupfile = os.path.abspath(args.mashupfile)
 
     # Get metadata
     metadata['artist'] = args.artist
@@ -66,7 +75,8 @@ def main():
     # Create the output directory if it does not exist already
     output_dir = os.path.join(
         os.path.abspath(args.output_dir),
-        metadata['album'] or os.path.splitext(os.path.basename(args.video))[0]
+        metadata['album'] or os.path.splitext(
+            os.path.basename(args.mashupfile))[0]
     )
     if not os.path.exists(output_dir):
         log('Creating ' + output_dir)
@@ -74,12 +84,12 @@ def main():
 
     # Perform the tracklist extraction and audiofile export
     log('Extracting track information...')
-    tracklist = extract_tracklist(mashupfile)
+    tracklist = extract_tracklist(youtube_page)
 
     log('Exporting and tagging audio files...')
     AudioExporter(
         tracklist=tracklist,
-        video_filepath=args.video,
+        video_filepath=mashupfile,
         output_dir=output_dir,
         audio_format=args.audioformat,
         metadata=metadata).export_tracks()

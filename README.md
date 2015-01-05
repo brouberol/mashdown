@@ -12,30 +12,46 @@ To install Mashdown, you can simply use pip:
 $ pip install mashdown
 ```
 
-## Example
+## Examples
 
+### Downloading and splitting the mashup
 ```bash
 $ mashdown \
-    --tracklist http://www.youtube.com/watch\?v\=702dP7vDQhs \
     --audioformat ogg \
     --artist "Murray Gold" \
     --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
-    ~/dwhelper/Doctor_Who_Epic_Soundtrack_Music_Mix_for_50th_Anniversary_Mu.mp4
+    --url http://www.youtube.com/watch\?v\=702dP7vDQhs
+```
+
+### Splitting a local mashup
+In this example, the mashup will not be downloaded. The youtube URL is only used to fetch the tracklist information.
+
+```bash
+$ mashdown \
+    --audioformat ogg \
+    --artist "Murray Gold" \
+    --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
+    --mashupfile path/to/mashupfile
+    --url http://www.youtube.com/watch\?v\=702dP7vDQhs
 ```
 
 ## Usage
 
 ```
-usage: mashdown [-h] -m MASHUP [-f AUDIOFORMAT] [-o OUTPUT_DIR] [-q]
-               [--artist ARTIST] [--album ALBUM]
+usage: mashdown.py [-h] [-u URL] [-m MASHUPFILE]
+               [--input-audioformat INPUT_AUDIOFORMAT] [-f AUDIOFORMAT]
+               [-o OUTPUT_DIR] [-q] [--artist ARTIST] [--album ALBUM]
 
 Splits a Youtube mashup video into a list of tagged audio tracks
 
 optional arguments:
   -h, --help            show this help message and exit
-  -m MASHUP, --mashup MASHUP
-                        The path to the video file. It can either be a Youtube
-                        link or a local path, absolute or relative.
+  -u URL, --url URL     The youtube link to the mashup.
+  -m MASHUPFILE, --mashupfile MASHUPFILE
+                        The local path, relative or absolute, to the mashup
+                        file.
+  --input-audioformat INPUT_AUDIOFORMAT
+                        The prefered audio format for the source mashup file.
   -f AUDIOFORMAT, --audioformat AUDIOFORMAT
                         The export audio format. Examples: 'mp3', 'ogg',
                         'mp4', 'flac', ...
@@ -48,7 +64,6 @@ optional arguments:
 metadata:
   --artist ARTIST       The artist name
   --album ALBUM         The album name
-
 
 ```
 
