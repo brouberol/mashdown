@@ -40,7 +40,7 @@ class AudioExporter(object):
         for i, track in enumerate(self.tracklist):
             self.export_track(track, i + 1)
 
-    def export_track(self, track_info, index):
+    def export_track(self, track_info, track_nb):
         name, start, end = track_info
         name = name.replace('/', '-')
         if end is None:
@@ -48,7 +48,7 @@ class AudioExporter(object):
         else:
             audiosegment = self.audiofile[start:end]
         filename = '%s - %s.%s' % (
-            str(index).zfill(len(str(self.nb_tracks))),
+            str(track_nb).zfill(len(str(self.nb_tracks))),
             name,
             self.audio_format)
         print(filename)
