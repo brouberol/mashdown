@@ -15,15 +15,15 @@ with open('README.rst') as f:
 setup(
     name=u'mashdown',
     version=version,
-    description=u'Splits a youtube mashup video in a list of tagged audio files',
+    description=u'v',
     long_description=readme,
     author=u'Balthazar Rouberol',
     author_email=u'brouberol@imap.cc',
     license='License :: OSI Approved :: MIT License',
     packages=['mashdown'],
-    install_requires=['pydub'],
+    install_requires=['pydub', 'pafy', 'mutagen'],
     entry_points={
-        'console_scripts': ['mashdown=mashdown.cmd:main']
+        'console_scripts': ['mashdown=main:main']
     },
     classifiers=[
         'Development Status :: 3 - Alpha',

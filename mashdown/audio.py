@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+
+"""
+mashdown.audio
+~~~~~~~~~~~~~~
+
+This module contains the export functions that will split the mashup
+video file to independants tagged and named audio files.
+
+"""
+
+import pydub
+
+from os.path import join
+
+from mashdown.metadata import write_metadata
+
+
+class AudioExporter(object):
+
+    def __init__(
+        self,
+        tracklist,
+        video_filepath,
+        output_dir,
+        audio_format,
+        metadata
+    ):
+        self.tracklist = tracklist
+        self.video_filepath = video_filepath
+        self.output_dir = output_dir
+        self.audio_format = audio_format
+        self.metadata = metadata
+        self.extension = video_filepath.split('.')[-1]
+        self.audiofile = pydub.AudioSegment.from_file(
+            video_filepath, self.extension)
+        self.nb_tracks = len(tracklist)
+
+    def export_tracks(self):
+        for i, track in enumerate(self.tracklist):
+            self.export_track(track, i + 1)
+
+    def export_track(self, track_info, index):
+        name, start, end = track_info
+        name = name.replace('/', '-')
+        if end is None:
+            audiosegment = self.audiofile[start:]
+        else:
+            audiosegment = self.audiofile[start:end]
+        filename = '%s - %s.%s' % (
+            str(index).zfill(len(str(self.nb_tracks))),
+            name,
+            self.audio_format)
+        print(filename)
+        filepath = join(self.output_dir, filename)
+        audiosegment.export(filepath, format=self.audio_format)
+        write_metadata(
+            audio_format=self.audio_format,
+            filepath=filepath,
+            title=name,
+            artist=self.metadata['artist'],
+            album=self.metadata['album'])
