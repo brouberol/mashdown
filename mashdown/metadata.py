@@ -53,4 +53,4 @@ def write_metadata_other_formats(audio_format, filepath, title, artist, album):
         f['artist'] = artist
     if album:
         f['album'] = album
-    f.tags.save()
+    f.save()
