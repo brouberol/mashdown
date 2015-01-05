@@ -1,6 +1,8 @@
 Mashdown will split a Youtube mashup video into individual audio files, with documented audio tags.
 
-**Warning**: For Mashdown to work, the video must come with a tracklist listing the start time and track name for each track. The tracklist can either be in the Youtube description or in a local file. Here is a `Youtube video <https://www.youtube.com/watch?v=702dP7vDQhs>`_ that is a perfect candidate.
+**Warning**: For Mashdown to work, the video must come with a tracklist listing the start time and track name for each track. The tracklist can either be in the Youtube description or in a local file. Here is a [Youtube video](https://www.youtube.com/watch?v=702dP7vDQhs) that is a perfect candidate.
+
+Also, the video must also already be downloaded locally. I recommend using some tools like [DownloadHelper](http://www.downloadhelper.net/) or [youtube-dl](https://github.com/rg3/youtube-dl).
 
 ## Installation
 
@@ -52,3 +54,10 @@ $ mashdown \
     --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
     ~/dwhelper/Doctor_Who_Epic_Soundtrack_Music_Mix_for_50th_Anniversary_Mu.mp4
 ```
+
+## Dependencies
+Mashdown is depends on the following libraries:
+
+- ``pydub`` (which requires ``ffmpeg`` or ``avconv`` to be installed on the system), to cut the video file and export the audio segments
+- ``pafy``, to read the Youtube video metadata
+- ``mutagen``, to edit the audiofile metadata
