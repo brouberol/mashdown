@@ -12,6 +12,17 @@ To install Mashdown, you can simply use pip:
 $ pip install mashdown
 ```
 
+## Example
+
+```bash
+$ mashdown \
+    --tracklist http://www.youtube.com/watch\?v\=702dP7vDQhs \
+    --audioformat ogg \
+    --artist "Murray Gold" \
+    --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
+    ~/dwhelper/Doctor_Who_Epic_Soundtrack_Music_Mix_for_50th_Anniversary_Mu.mp4
+```
+
 ## Usage
 
 ```
@@ -44,17 +55,6 @@ metadata:
   --artist ARTIST       The artist name
   --album ALBUM         The album name
 
-```
-
-## Example
-
-```bash
-$ mashdown \
-    --tracklist http://www.youtube.com/watch\?v\=702dP7vDQhs \
-    --audioformat ogg \
-    --artist "Murray Gold" \
-    --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
-    ~/dwhelper/Doctor_Who_Epic_Soundtrack_Music_Mix_for_50th_Anniversary_Mu.mp4
 ```
 
 ## Dependencies
