@@ -15,7 +15,7 @@ with open('README.md') as f:
 setup(
     name=u'mashdown',
     version=version,
-    description=u'Splits a youtube mashup video in a list of tagged audio files',
+    description=u'Split a youtube mashup video in a list of tagged audio files',
     long_description=readme,
     author=u'Balthazar Rouberol',
     author_email=u'brouberol@imap.cc',
@@ -23,7 +23,7 @@ setup(
     packages=['mashdown'],
     install_requires=['pydub', 'pafy', 'mutagen'],
     entry_points={
-        'console_scripts': ['mashdown=main:main']
+        'console_scripts': ['mashdown=mashdown.main:main']
     },
     classifiers=[
         'Development Status :: 3 - Alpha',

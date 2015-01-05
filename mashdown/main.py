@@ -13,10 +13,10 @@ from mashdown.audio import AudioExporter
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description=('Splits a Youtube mashup video into a list of '
+        description=('Split a Youtube mashup video into a list of '
                      'tagged audio tracks'))
     parser.add_argument(
-        '-u', '--url',
+        'url',
         help='The youtube link to the mashup.')
     parser.add_argument(
         '-m', '--mashupfile',
