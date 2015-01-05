@@ -20,7 +20,7 @@ $ mashdown \
     --audioformat ogg \
     --artist "Murray Gold" \
     --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
-    --url http://www.youtube.com/watch\?v\=702dP7vDQhs
+    http://www.youtube.com/watch\?v\=702dP7vDQhs
 ```
 
 ### Splitting a local mashup
@@ -32,21 +32,24 @@ $ mashdown \
     --artist "Murray Gold" \
     --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
     --mashupfile path/to/mashupfile
-    --url http://www.youtube.com/watch\?v\=702dP7vDQhs
+    http://www.youtube.com/watch\?v\=702dP7vDQhs
 ```
 
 ## Usage
 
 ```
-usage: mashdown.py [-h] [-u URL] [-m MASHUPFILE]
-               [--input-audioformat INPUT_AUDIOFORMAT] [-f AUDIOFORMAT]
-               [-o OUTPUT_DIR] [-q] [--artist ARTIST] [--album ALBUM]
+usage: main.py [-h] [-m MASHUPFILE] [--input-audioformat INPUT_AUDIOFORMAT]
+               [-f AUDIOFORMAT] [-o OUTPUT_DIR] [-q] [--artist ARTIST]
+               [--album ALBUM]
+               url
 
-Splits a Youtube mashup video into a list of tagged audio tracks
+Split a Youtube mashup video into a list of tagged audio tracks
+
+positional arguments:
+  url                   The youtube link to the mashup.
 
 optional arguments:
   -h, --help            show this help message and exit
-  -u URL, --url URL     The youtube link to the mashup.
   -m MASHUPFILE, --mashupfile MASHUPFILE
                         The local path, relative or absolute, to the mashup
                         file.
@@ -64,7 +67,6 @@ optional arguments:
 metadata:
   --artist ARTIST       The artist name
   --album ALBUM         The album name
-
 ```
 
 ## Dependencies
