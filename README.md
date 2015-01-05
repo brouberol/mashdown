@@ -13,7 +13,7 @@ $ pip install mashdown
 ## Usage
 
 ```
-usage: main.py [-h] [-t TRACKLIST] [-f AUDIOFORMAT] [-o OUTPUT_DIR]
+usage: mashdown [-h] [-t TRACKLIST] [-f AUDIOFORMAT] [-o OUTPUT_DIR]
            [--artist ARTIST] [--album ALBUM]
            video
 
@@ -45,10 +45,10 @@ metadata:
 ## Example
 
 ```bash
-    mashdown \
-        --tracklist http://www.youtube.com/watch\?v\=702dP7vDQhs \
-        --audioformat mp3 \
-        --artist "Murray Gold" \
-        --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
-        ~/dwhelper/Doctor_Who_Epic_Soundtrack_Music_Mix_for_50th_Anniversary_Mu.mp4
+$ mashdown \
+    --tracklist http://www.youtube.com/watch\?v\=702dP7vDQhs \
+    --audioformat mp3 \
+    --artist "Murray Gold" \
+    --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
+    ~/dwhelper/Doctor_Who_Epic_Soundtrack_Music_Mix_for_50th_Anniversary_Mu.mp4
 ```

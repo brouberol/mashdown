@@ -28,7 +28,7 @@ def parse_args():
         '-f', '--audioformat',
         default='ogg',
         help=("The export audio format. Examples: 'mp3', 'ogg', 'mp4', "
-              "'flac', 'aac', ..."))
+              "'flac', ..."))
     parser.add_argument(
         '-o', '--output-dir',
         default='.',
