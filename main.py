@@ -17,13 +17,10 @@ def parse_args():
                      'tagged audio tracks')
     )
     parser.add_argument(
-        'video',
-        help='The path, relative or absolute, to the video file')
-    parser.add_argument(
-        '-t', '--tracklist',
-        help=('The location of the tracklist. It can either be a Youtube URL '
-              'or a local path. In the case of a Youtube URL, the tracklist '
-              'will be extracted from the video description'))
+        '-m', '--mashup',
+        required=True,
+        help=('The path to the video file. It can either be a Youtube link or '
+              'a local path, absolute or relative.'))
     parser.add_argument(
         '-f', '--audioformat',
         default='ogg',
@@ -51,16 +48,16 @@ def main():
         if not args.quiet:
             print(msg)
 
-    youtube = 'youtube' in args.tracklist
     metadata = {}
 
     # Get tracklist location
-    if youtube:
-        log('Fetching metadata for %s...' % (args.tracklist))
-        video = pafy.new(args.tracklist, basic=False)
-        tracklist_location = video
+    log('Fetching metadata for %s...' % (args.mashup))
+    if 'youtube' in args.mashup:
+        video = pafy.new(args.mashup, basic=False)
+        bestaudio_url = video.getbestaudio(preftype='mp4').url
+        mashupfile = bestaudio_url.download(quiet=args.quiet)
     else:
-        tracklist_location = extract_tracklist(args.tracklist)
+        mashupfile = os.path.abspath(args.mashup)
 
     # Get metadata
     metadata['artist'] = args.artist
@@ -77,7 +74,7 @@ def main():
 
     # Perform the tracklist extraction and audiofile export
     log('Extracting track information...')
-    tracklist = extract_tracklist(tracklist_location)
+    tracklist = extract_tracklist(mashupfile)
 
     log('Exporting and tagging audio files...')
     AudioExporter(

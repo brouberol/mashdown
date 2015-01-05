@@ -11,8 +11,6 @@ from different locations (Youtube, local file, etc).
 
 import re
 
-from pafy.pafy import Pafy as YoutubeVideo
-
 from collections import namedtuple
 
 TRACK_TIME = r'((?P<hours>\d):)?(?P<minutes>\d{2}):(?P<seconds>\d{2})'
@@ -63,23 +61,11 @@ def tracklist(text, tracklist_location):
     return tracklist
 
 
-def from_youtube(video):
-    """Return tracklist from the metadata of the argument youtube video."""
-    return tracklist(video.description, video.watchv_url)
-
-
-def from_local_file(filepath):
-    """Return tracklist from the content of the argument filepath."""
-    return tracklist(open(filepath).read(), filepath)
-
-
 def extract_tracklist(tracklist_location):
     """Extract the tracklist from its location.
 
     The location can be a local file path or a youtube URL.
 
     """
-    if isinstance(tracklist_location, YoutubeVideo):
-        return from_youtube(tracklist_location)
-    else:
-        return from_local_file(tracklist_location)
+    return tracklist(
+        tracklist_location.description, tracklist_location.watchv_url)

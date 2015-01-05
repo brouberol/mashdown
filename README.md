@@ -26,22 +26,16 @@ $ mashdown \
 ## Usage
 
 ```
-usage: mashdown [-h] [-t TRACKLIST] [-f AUDIOFORMAT] [-o OUTPUT_DIR] [-q]
+usage: mashdown [-h] -m MASHUP [-f AUDIOFORMAT] [-o OUTPUT_DIR] [-q]
                [--artist ARTIST] [--album ALBUM]
-               video
 
 Splits a Youtube mashup video into a list of tagged audio tracks
 
-positional arguments:
-  video                 The path, relative or absolute, to the video file
-
 optional arguments:
   -h, --help            show this help message and exit
-  -t TRACKLIST, --tracklist TRACKLIST
-                        The location of the tracklist. It can either be a
-                        Youtube URL or a local path. In the case of a Youtube
-                        URL, the tracklist will be extracted from the video
-                        description
+  -m MASHUP, --mashup MASHUP
+                        The path to the video file. It can either be a Youtube
+                        link or a local path, absolute or relative.
   -f AUDIOFORMAT, --audioformat AUDIOFORMAT
                         The export audio format. Examples: 'mp3', 'ogg',
                         'mp4', 'flac', ...
@@ -54,6 +48,7 @@ optional arguments:
 metadata:
   --artist ARTIST       The artist name
   --album ALBUM         The album name
+
 
 ```
 
