@@ -47,7 +47,7 @@ Usage
 
 ..
 
-    usage: main.py [-h] [-m MASHUPFILE] [--input-audioformat INPUT_AUDIOFORMAT]
+    usage: mashdown [-h] [-m MASHUPFILE] [--input-audioformat INPUT_AUDIOFORMAT]
                    [-f AUDIOFORMAT] [-o OUTPUT_DIR] [-q] [--artist ARTIST]
                    [--album ALBUM]
                    url
