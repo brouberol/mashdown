@@ -1,6 +1,6 @@
 Mashdown will download and split a Youtube mashup video into individual audio files, with documented audio tags.
 
-**Warning**: For Mashdown to work, the video must come with a tracklist listing the start time and track name for each track. The tracklist can either be in the Youtube description or in a local file. Here is a `Youtube video <https://www.youtube.com/watch?v=702dP7vDQhs>`_ that is a perfect candidate.
+**Warning**: For Mashdown to work, the video must come with a tracklist listing the start time and track name for each track. The tracklist can either be in the Youtube description or in a local file. Here is a `Youtube video <https://www.youtube.com/watch?v=upzOSSQWSYU>`_ that is a perfect candidate.
 
 
 Installation
@@ -23,9 +23,9 @@ Downloading and splitting the mashup
 
     $ mashdown \
         --audioformat ogg \
-        --artist "Murray Gold" \
-        --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
-        http://www.youtube.com/watch\?v\=702dP7vDQhs
+        --album "The Lord of the Rings Sountrack" \
+        --artist "Howard Shore" \
+        https://www.youtube.com/watch\?v\=upzOSSQWSYU
 
 
 Splitting a local mashup
@@ -36,10 +36,10 @@ In this example, the mashup will not be downloaded. The youtube URL is only used
 
     $ mashdown \
         --audioformat ogg \
-        --artist "Murray Gold" \
-        --album "Doctor Who: Epic Soundtrack Music Mix for 50th Anniversary" \
         --mashupfile path/to/mashupfile
-        http://www.youtube.com/watch\?v\=702dP7vDQhs
+        --album "The Lord of the Rings Sountrack" \
+        --artist "Howard Shore" \
+        https://www.youtube.com/watch\?v\=upzOSSQWSYU
 
 
 Usage
