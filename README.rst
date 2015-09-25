@@ -1,6 +1,6 @@
 Mashdown will download and split a Youtube mashup video into individual audio files, with documented audio tags.
 
-**Warning**: For Mashdown to work, the video must come with a tracklist listing the start time and track name for each track. The tracklist can either be in the Youtube description or in a local file. Here is a `Youtube video <https://www.youtube.com/watch?v=upzOSSQWSYU>`_ that is a perfect candidate.
+**Warning**: For Mashdown to work, the video must come with a tracklist listing the start time and track name for each track. The tracklist can either be in the Youtube description or in a local file. Here is a `Youtube video <https://www.youtube.com/watch?v=53eclAZXp2M>`_ that is a perfect candidate.
 
 
 Installation
