@@ -13,8 +13,11 @@ import re
 
 from collections import namedtuple
 
-TRACK_TIME = r'((?P<hours>\d):)?(?P<minutes>\d{2}):(?P<seconds>\d{2})'
-TRACK_INFO = r'%s (?P<track_name>[^\n]+)(?=\n+)' % (TRACK_TIME)
+TRACK_TIME = r'((?P<hours>\d{1,2}):)?(?P<minutes>\d{1,2}):(?P<seconds>\d{2})'
+TRACK_INFO = [
+    r'%s (?P<track_name>.+)' % (TRACK_TIME),
+    r'(?P<track_name>.+) %s' % (TRACK_TIME),
+]
 Track = namedtuple('Track', ['trackname', 'start_ms', 'end_ms'])
 
 
@@ -29,26 +32,38 @@ def _start_time_from_groupdict(groupdict):
             int(groupdict['seconds'])) * 1000
 
 
-def match_tracklist(text, tracklist_location):
-    """Extract a list of traclname/start ms from the text.
+def find_best_match(line):
+    matches = []
+    for pattern in TRACK_INFO:
+        match = re.match(pattern, line)
+        if match:
+            matches.append(match)
+    if not matches:
+        return None
+    return sorted(matches, key=lambda m: len(m.group()), reverse=True)[0]
+
+
+def match_tracklist(text):
+    """Extract a list of trackname/start ms from the text.
 
     The start time will be converted to milliseconds from the hh:mm:ss
     format.
 
     """
     track_list = []
-    track_list_match = re.finditer(TRACK_INFO, text)
-    for track_match in track_list_match:
+    for line in text.split('\n'):
+        track_match = find_best_match(line)
+        if not track_match:
+            continue
         start_time = _start_time_from_groupdict(track_match.groupdict())
         track_list.append((track_match.groupdict()['track_name'], start_time))
-    if not track_list:
-        raise ValueError('No track list could be extracted from %s' % (
-            tracklist_location))
     return track_list
 
 
-def tracklist(text, tracklist_location):
-    matched_tracklist = match_tracklist(text, tracklist_location)
+def tracklist(text):
+    matched_tracklist = match_tracklist(text)
+    if not matched_tracklist:
+        raise ValueError('No track list could be extracted.')
 
     # Compute the end_time from the start_time of the next element
     tracklist = []
@@ -59,13 +74,3 @@ def tracklist(text, tracklist_location):
     last_trackname, last_track_start_ms = matched_tracklist[-1]
     tracklist.append(Track(last_trackname, last_track_start_ms, None))
     return tracklist
-
-
-def extract_tracklist(tracklist_location):
-    """Extract the tracklist from its location.
-
-    The location can be a local file path or a youtube URL.
-
-    """
-    return tracklist(
-        tracklist_location.description, tracklist_location.watchv_url)

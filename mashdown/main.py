@@ -7,7 +7,7 @@ import os
 import os.path
 import pafy
 
-from mashdown.tracklist import extract_tracklist
+from mashdown.tracklist import tracklist
 from mashdown.audio import AudioExporter
 
 
@@ -84,11 +84,11 @@ def main():
 
     # Perform the tracklist extraction and audiofile export
     log('Extracting track information...')
-    tracklist = extract_tracklist(youtube_page)
+    tracks = tracklist(youtube_page.description)
 
     log('Exporting and tagging audio files...')
     AudioExporter(
-        tracklist=tracklist,
+        tracklist=tracks,
         video_filepath=mashupfile,
         output_dir=output_dir,
         audio_format=args.audioformat,
