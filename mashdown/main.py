@@ -76,7 +76,7 @@ def main():
     output_dir = os.path.join(
         os.path.abspath(args.output_dir),
         metadata['album'] or os.path.splitext(
-            os.path.basename(args.mashupfile))[0]
+            os.path.basename(mashupfile))[0]
     )
     if not os.path.exists(output_dir):
         log('Creating ' + output_dir)
