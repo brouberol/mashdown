@@ -86,3 +86,17 @@ Mashdown is depends on the following libraries:
 - ``pydub`` (which requires ``ffmpeg`` or ``avconv`` to be installed on the system), to cut the video file and export the audio segments
 - ``pafy``, to download the Youtube video and get its metadata
 - ``mutagen``, to edit the audiofile metadata
+
+
+Releases
+========
+
+0.1.1
+-----
+
+- The track name can be located before or after the track start time
+- Added unit tests
+
+0.1.0
+-----
+initial release
